@@ -8,13 +8,13 @@
     <div class="formulario__campo">
       <label class="campo__etiqueta" for="name">Full Name</label>
       <input name="name" id="name" class="campo__escrita" ngModel #name="ngModel" required
-        minlength="{{NAME_MIN_LENGTH}}" />
+        minlength="{{FIELD_MIN_LENGTH}}" />
 
       <div class="name_errors_texts" *ngIf="name?.touched || name?.dirty">
         <span class="erro__texto" *ngIf="name?.errors?.
         ['required']">Required Field.</span>
         <span class="erro__texto" *ngIf="name?.errors?.
-        ['minlength']">Required at leat {{NAME_MIN_LENGTH}} characters.</span>
+        ['minlength']">Required at leat {{FIELD_MIN_LENGTH}} characters.</span>
       </div>
 
     </div>
@@ -60,7 +60,7 @@
           <span class="erro__texto" *ngIf="telephone?.errors?.
         ['required']">Required Field.</span>
           <span class="erro__texto" *ngIf="telephone?.errors?.
-        ['pattern']">This field must follow the "(XX) XXXXX-XXXX" pattern.</span>
+        ['pattern']">This field must follow the "(00) 00000-0000" pattern.</span>
         </div>
 
       </div>
@@ -78,44 +78,142 @@
         <span class="erro__texto" *ngIf="email?.errors?.
         ['pattern']">This field must follow the "email@domain.com" pattern.</span>
       </div>
+      
 
     </div>
 
-    <h3 class="principal__subtitulo">Endereço</h3>
+    <h3 class="principal__subtitulo">Address</h3>
 
     <div class="formulario__campo">
       <label class="campo__etiqueta" for="cep">CEP</label>
-      <input name="cep" id="cep" class="campo__escrita" />
+      <input 
+        name="cep" 
+        id="cep" 
+        class="campo__escrita" 
+        ngModel
+        #cep="ngModel"
+        required
+        pattern="^(\d{5})(-?\d{3})$"
+        (blur)="getAddress($event, form)"
+        minlength="8"
+        maxlength="9"
+      />
+
+      <div class="name_errors_texts" *ngIf="cep?.touched || cep?.dirty">
+        <span class="erro__texto" *ngIf="cep?.errors?.
+      ['required']">Required Field.</span>
+        <span class="erro__texto" *ngIf="cep?.errors?.
+      ['pattern']">This field must follow the "00000-000" pattern.</span>
+      </div>
+
       <div id="erro"></div>
     </div>
 
     <div class="formulario__campo">
-      <label class="campo__etiqueta" for="endereco">Endereço</label>
-      <input name="endereco" id="endereco" class="campo__escrita" />
+      
+      <label class="campo__etiqueta" for="address">Address</label>
+      
+      <input 
+          name="address" 
+          id="address" 
+          class="campo__escrita" 
+          ngModel
+          #address="ngModel"
+          required
+          maxlength="30"
+          minlength="3"
+        />
+
+        <div class="name_errors_texts" *ngIf="address?.touched || address?.dirty">
+          <span class="erro__texto" *ngIf="address?.errors?.
+        ['required']">Required Field.</span>
+        <span class="erro__texto" *ngIf="address?.errors?.
+        ['minlength']">Required at leat {{FIELD_MIN_LENGTH}} characters.</span>
+        </div>
+
     </div>
+
     <div class="formulario__dupla">
+
       <div class="formulario__campo">
-        <label class="campo__etiqueta" for="numero">Numero</label>
-        <input name="numero" id="numero" class="campo__escrita" />
-      </div>
-      <div class="formulario__campo">
-        <label class="campo__etiqueta" for="complemento">Complemento</label>
-        <input name="complemento" id="complemento" class="campo__escrita" />
-      </div>
-    </div>
-    <div class="formulario__campo">
-      <label class="campo__etiqueta" for="bairro">Bairro</label>
-      <input name="bairro" id="bairro" class="campo__escrita" />
-    </div>
-    <div class="formulario__dupla">
-      <div class="formulario__campo">
-        <label class="campo__etiqueta" for="cidade">Cidade</label>
-        <input name="cidade" id="cidade" class="campo__escrita" />
+        
+        <label class="campo__etiqueta" for="addressNumber">Address number</label>
+        
+        <input 
+        name="addressNumber" 
+        id="addressNumber"
+        type="number"
+        class="campo__escrita" 
+        ngModel
+        #addressNumber="ngModel"
+        required
+        />
+
+        <div class="name_errors_texts" *ngIf="addressNumber?.touched || addressNumber?.dirty">
+          <span class="erro__texto" *ngIf="addressNumber?.errors?.
+        ['required']">Required Field.</span>
+        </div>
+
       </div>
 
       <div class="formulario__campo">
-        <label class="campo__etiqueta" for="estado">UF</label>
-        <select id="estado" name="estado" class="campo__escrita">
+        <label class="campo__etiqueta" for="complemento">Complement</label>
+        <input name="complemento" id="complemento" class="campo__escrita" />
+      </div>
+
+    </div>
+
+    <div class="formulario__campo">
+
+      <label class="campo__etiqueta" for="neighbor">Neighborhood</label>
+
+      <input 
+      name="neighbor" 
+      id="neighbor" 
+      class="campo__escrita" 
+      ngModel
+      #neighbor="ngModel"
+      required
+      minlength="{{FIELD_MIN_LENGTH}}"
+      />
+
+      <div class="name_errors_texts" *ngIf="neighbor?.touched || neighbor?.dirty">
+        <span class="erro__texto" *ngIf="neighbor?.errors?.
+      ['required']">Required Field.</span>
+      <span class="erro__texto" *ngIf="neighbor?.errors?.
+      ['minlength']">Required at leat {{FIELD_MIN_LENGTH}} characters.</span>
+      </div>
+
+    </div>
+
+    <div class="formulario__dupla">
+
+      <div class="formulario__campo">
+
+        <label class="campo__etiqueta" for="city">City</label>
+
+        <input 
+        name="city" 
+        id="city" 
+        class="campo__escrita" 
+        ngModel
+        #city="ngModel"
+        required
+        minlength="{{FIELD_MIN_LENGTH}}"
+        />
+
+        <div class="name_errors_texts" *ngIf="city?.touched || city?.dirty">
+          <span class="erro__texto" *ngIf="city?.errors?.
+        ['required']">Required Field.</span>
+        <span class="erro__texto" *ngIf="city?.errors?.
+        ['minlength']">Required at leat {{FIELD_MIN_LENGTH}} characters.</span>
+        </div>
+
+      </div>
+
+      <div class="formulario__campo">
+        <label class="campo__etiqueta" for="state">UF</label>
+        <select id="state" name="state" class="campo__escrita" ngModel #state>
           <option value="AC">Acre</option>
           <option value="AL">Alagoas</option>
           <option value="AP">Amapá</option>
@@ -145,9 +243,12 @@
           <option value="TO">Tocantins</option>
           <option value="EX">Estrangeiro</option>
         </select>
+
       </div>
 
     </div>
+
     <button type="submit" class="formulario__botao">Enviar formulário</button>
+
   </form>
 </main>
