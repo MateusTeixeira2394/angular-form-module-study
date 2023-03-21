@@ -30,11 +30,14 @@
           ngModel
           #birthday="ngModel"
           required
+          legalAgeValidator
         />
 
         <div class="name_errors_texts" *ngIf="birthday?.touched || birthday?.dirty">
           <span class="erro__texto" *ngIf="birthday?.errors?.
           ['required']">Required Field.</span>
+          <span class="erro__texto" *ngIf="birthday?.errors?.
+          ['legalAgeValidator']">You must be more than 18 years old.</span>
         </div>
 
       </div>
