@@ -9,4 +9,5 @@ export default interface CEP {
     gia: string;
     ddd: string;
     siafi: string;
+    erro?: boolean;
 }

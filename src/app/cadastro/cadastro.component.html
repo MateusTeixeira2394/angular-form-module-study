@@ -1,5 +1,5 @@
 <main class="principal">
-  <h2 class="principal__titulo">Signup datas</h2>
+  <h2 class="principal__titulo">Sign up datas</h2>
 
   <form class="principal__formulario" id="formulario" #form="ngForm" (ngSubmit)="signup(form)">
 
@@ -97,6 +97,7 @@
         (blur)="getAddress($event, form)"
         minlength="8"
         maxlength="9"
+        cepValidator
       />
 
       <div class="name_errors_texts" *ngIf="cep?.touched || cep?.dirty">
@@ -104,6 +105,8 @@
       ['required']">Required Field.</span>
         <span class="erro__texto" *ngIf="cep?.errors?.
       ['pattern']">This field must follow the "00000-000" pattern.</span>
+      <span class="erro__texto" *ngIf="cep?.errors?.
+      ['cepValidator']">No address was found with this cep. Please, try another one.</span>
       </div>
 
       <div id="erro"></div>
@@ -248,7 +251,7 @@
 
     </div>
 
-    <button type="submit" class="formulario__botao">Enviar formulário</button>
+    <button type="submit" class="formulario__botao">Sign up</button>
 
   </form>
 </main>
