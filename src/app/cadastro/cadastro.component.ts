@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, NgForm } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import CEP from '../models/cep.model';
 import { CepService } from './../services/cep.service';
@@ -21,10 +21,29 @@ export class CadastroComponent implements OnInit {
   }
 
   public signup(form: NgForm) {
-    console.log('form', form);
-    if (form.valid) this.router.navigate(['success'])
-    console.log('Invalid form!');
-  }
+
+    if (form.valid){
+      
+      this.router.navigate(['success']);
+
+    } else {
+
+      let requiredField: string = '';
+
+    for (const field in form.controls) {
+      if (form.controls[field].errors?.['required']) {
+        document.getElementById(field)?.focus();
+        requiredField = field;
+        break;
+      };
+    };
+
+    alert(`Invalid Form. The ${requiredField} field can't be blank.`);
+
+    };
+
+
+  };
 
   public getAddress(event: FocusEvent, form: NgForm): void {
 
@@ -37,8 +56,6 @@ export class CadastroComponent implements OnInit {
       this.cepService
         .getAddress(cep)
         .subscribe(result => {
-          console.log('form', form);
-          console.log('result', result);
           this.fillForm(result, form);
         });
 
@@ -63,6 +80,24 @@ export class CadastroComponent implements OnInit {
       state: uf
     });
 
-  }
+  };
+
+  public telMask(event: KeyboardEvent): void {
+
+    const inputElement: HTMLInputElement = event.target as HTMLInputElement;
+
+    let value: string = inputElement.value;
+
+    inputElement.value = value.replace(/[^\d]/g,"");
+
+    if(value.length===11){
+      inputElement.value = value.replace(/(\d{2})(\d{5})(\d{4})/g,"($1) $2-$3");
+    };
+
+    if(value.length>11){
+      inputElement.value = "";
+    };
+
+  };
 
 }

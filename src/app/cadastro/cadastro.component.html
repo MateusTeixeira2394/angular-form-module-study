@@ -21,10 +21,10 @@
 
     <div class="formulario__dupla">
       <div class="formulario__campo">
-        <label class="campo__etiqueta" for="nascimento">Birthday</label>
+        <label class="campo__etiqueta" for="birthday">Birthday</label>
         <input 
-          name="nascimento" 
-          id="nascimento" 
+          name="birthday" 
+          id="birthday" 
           type="date" 
           class="campo__escrita" 
           ngModel
@@ -52,15 +52,17 @@
         ngModel
         #telephone="ngModel"
         class="campo__escrita" 
-        required 
-        pattern="^\(\d{2}\)\s{1}\d{4,6}-\d{4}$"
+        required
+        minlength="11"
+        maxlength="11"
+        (keyup)="telMask($event)"
       />
 
         <div class="name_errors_texts" *ngIf="telephone?.touched || telephone?.dirty">
           <span class="erro__texto" *ngIf="telephone?.errors?.
         ['required']">Required Field.</span>
           <span class="erro__texto" *ngIf="telephone?.errors?.
-        ['pattern']">This field must follow the "(00) 00000-0000" pattern.</span>
+        ['minlength']">This field must follow the "(00) 00000-0000" pattern.</span>
         </div>
 
       </div>
