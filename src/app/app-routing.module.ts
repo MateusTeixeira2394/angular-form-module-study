@@ -8,14 +8,14 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'cadastro',
+    redirectTo: 'signup',
   },
   {
-    path: 'cadastro',
+    path: 'signup',
     component: CadastroComponent
   },
   {
-    path: 'sucesso',
+    path: 'success',
     component: SucessoCadastroComponent
   },
 ];

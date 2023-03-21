@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { NgForm } from '@angular/forms'
 @Component({
   selector: 'app-cadastro',
   templateUrl: './cadastro.component.html',
@@ -8,12 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CadastroComponent implements OnInit {
 
+  public readonly NAME_MIN_LENGTH: number = 3;
+
   constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
-  cadastrar(){
-      console.log('Formulário enviado');
+  signup(form: NgForm) {
+    console.log('form', form);
+    if (form.valid) this.router.navigate(['success'])
+    console.log('Invalid form!');
   }
+
 }

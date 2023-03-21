@@ -1,27 +1,82 @@
 <main class="principal">
-  <h2 class="principal__titulo">Dados do cadastro</h2>
+  <h2 class="principal__titulo">Signup datas</h2>
 
-  <form class="principal__formulario" id="formulario">
-    <h3 class="principal__subtitulo">Dados pessoais</h3>
+  <form class="principal__formulario" id="formulario" #form="ngForm" (ngSubmit)="signup(form)">
+
+    <h3 class="principal__subtitulo">Personal datas</h3>
+
     <div class="formulario__campo">
-      <label class="campo__etiqueta" for="nome">Nome Completo</label>
-      <input name="nome" id="nome" class="campo__escrita">
+      <label class="campo__etiqueta" for="name">Full Name</label>
+      <input name="name" id="name" class="campo__escrita" ngModel #name="ngModel" required
+        minlength="{{NAME_MIN_LENGTH}}" />
+
+      <div class="name_errors_texts" *ngIf="name?.touched || name?.dirty">
+        <span class="erro__texto" *ngIf="name?.errors?.
+        ['required']">Required Field.</span>
+        <span class="erro__texto" *ngIf="name?.errors?.
+        ['minlength']">Required at leat {{NAME_MIN_LENGTH}} characters.</span>
+      </div>
+
     </div>
+
     <div class="formulario__dupla">
       <div class="formulario__campo">
-        <label class="campo__etiqueta" for="nascimento">Nascimento</label>
-        <input name="nascimento" id="nascimento" type="date" class="campo__escrita"/>
+        <label class="campo__etiqueta" for="nascimento">Birthday</label>
+        <input 
+          name="nascimento" 
+          id="nascimento" 
+          type="date" 
+          class="campo__escrita" 
+          ngModel
+          #birthday="ngModel"
+          required
+        />
+
+        <div class="name_errors_texts" *ngIf="birthday?.touched || birthday?.dirty">
+          <span class="erro__texto" *ngIf="birthday?.errors?.
+          ['required']">Required Field.</span>
+        </div>
+
       </div>
+
       <div class="formulario__campo">
-        <label class="campo__etiqueta" for="telefone">Contato</label>
-        <input name="telefone" id="telefone" type="tel" placeholder="(XX) XXXXX-XXXX" class="campo__escrita"/>
+        <label class="campo__etiqueta" for="telephone">Contact</label>
+        <input
+        name="telephone"
+        id="telephone"
+        type="tel"
+        placeholder="(XX) XXXXX-XXXX"
+        ngModel
+        #telephone="ngModel"
+        class="campo__escrita" 
+        required 
+        pattern="^\(\d{2}\)\s{1}\d{4,6}-\d{4}$"
+      />
+
+        <div class="name_errors_texts" *ngIf="telephone?.touched || telephone?.dirty">
+          <span class="erro__texto" *ngIf="telephone?.errors?.
+        ['required']">Required Field.</span>
+          <span class="erro__texto" *ngIf="telephone?.errors?.
+        ['pattern']">This field must follow the "(XX) XXXXX-XXXX" pattern.</span>
+        </div>
+
       </div>
-    </div>
-    <div class="formulario__campo">
-      <label class="campo__etiqueta" for="email">E-mail</label>
-      <input name="email" id="email" type="email" class="campo__escrita"/>
     </div>
 
+    <div class="formulario__campo">
+
+      <label class="campo__etiqueta" for="email">E-mail</label>
+      <input name="email" id="email" type="email" class="campo__escrita" ngModel #email="ngModel" required
+        pattern="^\w+@\w+\.+\w+\.{0,1}\w+$" />
+
+      <div class="name_errors_texts" *ngIf="email?.touched || email?.dirty">
+        <span class="erro__texto" *ngIf="email?.errors?.
+        ['required']">Required Field.</span>
+        <span class="erro__texto" *ngIf="email?.errors?.
+        ['pattern']">This field must follow the "email@domain.com" pattern.</span>
+      </div>
+
+    </div>
 
     <h3 class="principal__subtitulo">Endereço</h3>
 
@@ -91,5 +146,5 @@
 
     </div>
     <button type="submit" class="formulario__botao">Enviar formulário</button>
-    </form>
+  </form>
 </main>
